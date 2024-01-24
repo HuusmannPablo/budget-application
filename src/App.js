@@ -1,6 +1,8 @@
-import { Button, Container, Form, Grid, Header, Icon, Segment, Statistic } from 'semantic-ui-react';
+import { Container, Grid, Icon, Segment, Statistic } from 'semantic-ui-react';
 import './App.css';
 import MainHeader from './components/MainHeader';
+import NewEntryForm from './components/NewEntryForm';
+import DisplayBalance from './components/DisplayBalance';
 
 function App() {
   return (
@@ -18,24 +20,22 @@ function App() {
 			<Grid columns={2} divided>
 			<Grid.Row>
 				<Grid.Column>
-				<Statistic size="tiny" color="green">
-					<Statistic.Label style={{ textAlign: 'left' }}>
-						Incoming:
-					</Statistic.Label>
-					<Statistic.Value>
-						1,045.50
-					</Statistic.Value>
-				</Statistic>
+					<DisplayBalance 
+						size="tiny" 
+						color="green" 
+						align="left" 
+						title="Incoming:" 
+						value="1,045.50" 
+					/>
 				</Grid.Column>
 				<Grid.Column>
-				<Statistic size="tiny" color="red">
-					<Statistic.Label style={{ textAlign: 'left' }}>
-						Expenses:
-					</Statistic.Label>
-					<Statistic.Value>
-						623.50
-					</Statistic.Value>
-				</Statistic>
+					<DisplayBalance 
+						size="tiny" 
+						color="red" 
+						align="left" 
+						title="Expenses:" 
+						value="623.50" 
+					/>
 				</Grid.Column>
 			</Grid.Row>
 			</Grid>
@@ -91,28 +91,7 @@ function App() {
 			</Grid>
 		</Segment>
 		<MainHeader title={"Add new transaction"} type={"h3"} />
-		<Form unstackable>
-			<Form.Group>
-			<Form.Input
-				placeholder="New thing"
-				icon="tags"
-				width={12}
-				label="Description"
-			/>
-			<Form.Input
-				placeholder="100.00"
-				icon="dollar"
-				iconPosition='left'
-				width={4}
-				label="Value"
-			/>
-			</Form.Group>
-			<Button.Group style={{ marginTop: 20 }} >
-			<Button>Cancel</Button>
-			<Button.Or />
-			<Button primary >Ok</Button>
-			</Button.Group>
-		</Form>
+		<NewEntryForm />		
     </Container>
   );
 }
