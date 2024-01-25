@@ -1,7 +1,13 @@
 import React from 'react'
 import { Segment, Grid, Icon } from 'semantic-ui-react'
 
-function EntryLine({description, value, isExpense = false}) {
+function EntryLine(
+    {entry: { 
+        id,
+        description, 
+        value, 
+        isExpense = false 
+    }}) {
     const color = isExpense ? 'red' : 'green';
     
     return (

@@ -1,44 +1,75 @@
 import { Container } from 'semantic-ui-react';
-import './App.css';
 import MainHeader from './components/MainHeader';
 import NewEntryForm from './components/NewEntryForm';
 import DisplayBalance from './components/DisplayBalance';
 import DisplayBalances from './components/DisplayBalances';
-import EntryLine from './components/EntryLine';
+import { useState } from 'react';
+import './App.css';
+import EntryLines from './components/EntryLines';
 
 function App() {
-  return (
-    <Container>
-		<MainHeader title={"Budget"} />
-		<DisplayBalance 
-			size="small" 
-			color="black" 
-			align="left" 
-			title="Your Balance:" 
-			value="2550.53" 
-		/>
-		<DisplayBalances />
+	const [entries, setEntries] = useState(initialEntries);
 
-		<MainHeader title={"History"} type={"h3"} />
-		<EntryLine
-			isExpense={true}		
-			description={"Something"}
-			value={"10.00"} 
-		/>
-		<EntryLine
-			isExpense={false}		
-			description={"Something else"}
-			value={"100.00"} 
-		/>
-		<EntryLine
-			isExpense={true}		
-			description={"Something"}
-			value={"10.00"} 
-		/>
-		<MainHeader title={"Add new transaction"} type={"h3"} />
-		<NewEntryForm />		
-    </Container>
-  );
+	return (
+		<Container>
+
+			<MainHeader title={"Budget"} />
+			<DisplayBalance 
+				size="small" 
+				color="black" 
+				align="left" 
+				title="Your Balance:" 
+				value="2550.53" 
+			/>
+			<DisplayBalances />
+
+			<MainHeader title={"History"} type={"h3"} />
+			
+			<EntryLines entries={entries} />
+
+			<MainHeader title={"Add new transaction"} type={"h3"} />
+			<NewEntryForm />		
+		</Container>
+	);
 }
 
 export default App;
+
+var initialEntries = [
+	{
+		id: 1,
+		description: "Work income",
+		value: "$1000.00",
+		isExpense: false
+	},
+	{
+		id: 2,
+		description: "Water bill",
+		value: "$20.00",
+		isExpense: true
+	},
+	{
+		id: 3,
+		description: "Rent",
+		value: "$300.00",
+		isExpense: true
+	},
+	{
+		id: 4,
+		description: "Power bill",
+		value: "$50.00",
+		isExpense: true
+	},
+	{
+		id: 5,
+		description: "Groceries",
+		value: "$250.00",
+		isExpense: true
+	},
+	{
+		id: 6,
+		description: "Fuel",
+		value: "$50.00",
+		isExpense: true
+	}
+];
