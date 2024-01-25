@@ -2,12 +2,13 @@ import React from 'react'
 import { Segment, Grid, Icon } from 'semantic-ui-react'
 
 function EntryLine(
-    {entry: { 
+    {
         id,
         description, 
         value, 
-        isExpense = false 
-    }}) {
+        isExpense = false,
+        deleteEntry 
+    }) {
     const color = isExpense ? 'red' : 'green';
     
     return (
@@ -22,7 +23,7 @@ function EntryLine(
 				</Grid.Column>
 				<Grid.Column width={3}>
 				<Icon name="edit" bordered />
-				<Icon name="trash" bordered />
+				<Icon name="trash" bordered onClick={() => deleteEntry(id)}/>
 				</Grid.Column>
 			</Grid.Row>
 			</Grid>
