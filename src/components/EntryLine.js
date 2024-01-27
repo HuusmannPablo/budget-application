@@ -8,12 +8,11 @@ function EntryLine(
         description, 
         value, 
         isExpense = false,
-        deleteEntry 
+        deleteEntry,
+		editEntry,
     }) {
     const color = isExpense ? 'red' : 'green';
 
-	const [isOpen, setIsOpen] = useState(false);
-    
     return (
 		<>
 			<Segment color={color}>
@@ -26,13 +25,12 @@ function EntryLine(
 						{value}
 					</Grid.Column>
 					<Grid.Column width={3}>
-					<Icon name="edit" bordered onClick={() => setIsOpen(true)}/>
+					<Icon name="edit" bordered onClick={() => editEntry(id)}/>
 					<Icon name="trash" bordered onClick={() => deleteEntry(id)}/>
 					</Grid.Column>
 				</Grid.Row>
 				</Grid>
 			</Segment>  
-			<ModalEdit isOpen={isOpen} setIsOpen={setIsOpen}/>
 		</>
     )
 }

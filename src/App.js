@@ -1,14 +1,19 @@
+import { useState } from 'react';
 import { Container } from 'semantic-ui-react';
 import MainHeader from './components/MainHeader';
 import NewEntryForm from './components/NewEntryForm';
 import DisplayBalance from './components/DisplayBalance';
 import DisplayBalances from './components/DisplayBalances';
-import { useState } from 'react';
-import './App.css';
 import EntryLines from './components/EntryLines';
+import ModalEdit from './components/ModalEdit';
+import './App.css';
 
 function App() {
 	const [entries, setEntries] = useState(initialEntries);
+	const [description, setDescription] = useState('');
+	const [value, setValue] = useState('');
+	const [isExpense, setIsExpense] = useState(true);
+	const [isOpen, setIsOpen] = useState(false);
 
 	function deleteEntry(id) {
 		const result = entries.filter((entry) => entry.id !== id);
@@ -23,6 +28,18 @@ function App() {
 			isExpense
 		});
 		setEntries(result);
+	}
+
+	function editEntry(id) {
+		console.log(id);
+		if(id){
+			const index = entries.findIndex((entry) => entry.id === id);
+			const entry = entries[index];
+			setDescription(entry.description);
+			setValue(entry.value);
+			setIsExpense(entry.isExpense);
+			setIsOpen(true);
+		}
 	}
 
 	return (
@@ -40,10 +57,32 @@ function App() {
 
 			<MainHeader title={"History"} type={"h3"} />
 			
-			<EntryLines entries={entries} deleteEntry={deleteEntry}/>
+			<EntryLines 
+				entries={entries} 
+				deleteEntry={deleteEntry}
+				editEntry={editEntry}
+			/>
 
 			<MainHeader title={"Add new transaction"} type={"h3"} />
-			<NewEntryForm addEntry={addEntry}/>		
+			<NewEntryForm 
+				addEntry={addEntry}
+				description={description}
+				setDescription={setDescription}
+				value={value}
+				setValue={setValue}
+				isExpense={isExpense}
+				setIsExpense={setIsExpense}
+			/>		
+			<ModalEdit 
+				isOpen={isOpen} 
+				setIsOpen={setIsOpen}
+				addEntry={addEntry}
+				description={description}
+				setDescription={setDescription}
+				value={value}
+				setValue={setValue}
+				isExpense={isExpense}
+				setIsExpense={setIsExpense}/>
 		</Container>
 	);
 }
