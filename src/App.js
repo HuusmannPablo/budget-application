@@ -6,6 +6,8 @@ import DisplayBalance from './components/DisplayBalance';
 import DisplayBalances from './components/DisplayBalances';
 import EntryLines from './components/EntryLines';
 import ModalEdit from './components/ModalEdit';
+import { createStore, configureStore } from 'redux';
+
 import './App.css';
 
 function App() {
@@ -52,9 +54,42 @@ function App() {
 		setDescription('');
 		setValue('');
 		setIsExpense(true);
-		// setIsOpen(false);
-		// setEntryId(null);
 	}
+
+	const store = createStore((state = initialEntries, action) => {
+		console.log(action);
+		let newEntries;
+		switch(action.type){
+			case 'ADD_ENTRY':
+				newEntries = state.concat({...action.payload});
+				return newEntries;
+			
+			case 'REMOVE_ENTRY':
+				newEntries = state.filter((entry) => entry.id !== action.payload.id);
+				return newEntries;
+				
+			default:
+				return state;
+		};
+	});
+
+	store.subscribe(() => {
+		console.log('Store: ', store.getState())
+	});
+
+	const payload_add = {
+		id: entries.length + 1,
+		description: 'Hello from Redux',
+		value: 100,
+		isExpense: false
+	};
+
+	const payload_remove = {
+		id: 7
+	};
+	
+	store.dispatch({ type: 'ADD_ENTRY', payload: payload_add });
+	store.dispatch({ type: 'REMOVE_ENTRY', payload: payload_remove });
 
 	useEffect(() => {
 		if(!isOpen && entryId){

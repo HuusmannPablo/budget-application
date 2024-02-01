@@ -31,12 +31,21 @@ function EntryForm({
                 />
             </Form.Group>
             <Segment compact>
-                <Checkbox 
+            <label>
+                Is expense
+                <input 
+                    type="checkbox" 
+                    checked={isExpense} 
+                    style={{ marginLeft: '10px', scale: '1.5'}}
+                    onChange={() => setIsExpense((oldState) => !oldState)} 
+                />
+            </label>
+                {/* <Checkbox 
                     toggle 
                     label="Is expense" 
                     checked={isExpense} 
                     onChange={() => setIsExpense((oldState) => !oldState)} 
-                />
+                /> */}
             </Segment>  
         </>
     )
