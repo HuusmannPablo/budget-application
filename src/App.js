@@ -6,11 +6,10 @@ import DisplayBalance from './components/DisplayBalance';
 import DisplayBalances from './components/DisplayBalances';
 import EntryLines from './components/EntryLines';
 import ModalEdit from './components/ModalEdit';
-
+import { useSelector } from 'react-redux';
 import './App.css';
 
 function App() {
-	const [entries, setEntries] = useState(initialEntries);
 	const [description, setDescription] = useState('');
 	const [value, setValue] = useState('');
 	const [isExpense, setIsExpense] = useState(true);
@@ -19,6 +18,7 @@ function App() {
 	const [incomeTotal, setIncomeTotal] = useState(0);
 	const [expenseTotal, setExpenseTotal] = useState(0);
 	const [total, setTotal] = useState(0);
+	const entries = useSelector((state) => state.entries);
 
 	function addEntry() {
 		const result = entries.concat({
@@ -27,7 +27,7 @@ function App() {
 			value,
 			isExpense
 		});
-		setEntries(result);
+		// setEntries(result);
 		resetEntry();
 	}
 
@@ -44,11 +44,6 @@ function App() {
 		}
 	}
 
-	function deleteEntry(id) {
-		const result = entries.filter((entry) => entry.id !== id);
-		setEntries(result);
-	}
-
 	function resetEntry() {
 		setDescription('');
 		setValue('');
@@ -62,7 +57,7 @@ function App() {
 			newEntries[index].description = description;
 			newEntries[index].value = value;
 			newEntries[index].isExpense = isExpense;
-			setEntries(newEntries);
+			// setEntries(newEntries);
 			resetEntry();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -102,7 +97,6 @@ function App() {
 			
 			<EntryLines 
 				entries={entries} 
-				deleteEntry={deleteEntry}
 				editEntry={editEntry}
 			/>
 
@@ -131,42 +125,3 @@ function App() {
 }
 
 export default App;
-
-var initialEntries = [
-	{
-		id: 1,
-		description: "Work income",
-		value: 1000.00,
-		isExpense: false
-	},
-	{
-		id: 2,
-		description: "Water bill",
-		value: 20.00,
-		isExpense: true
-	},
-	{
-		id: 3,
-		description: "Rent",
-		value: 300.00,
-		isExpense: true
-	},
-	{
-		id: 4,
-		description: "Power bill",
-		value: 50.00,
-		isExpense: true
-	},
-	{
-		id: 5,
-		description: "Groceries",
-		value: 250.00,
-		isExpense: true
-	},
-	{
-		id: 6,
-		description: "Fuel",
-		value: 50.00,
-		isExpense: true
-	}
-];
